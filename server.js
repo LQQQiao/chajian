@@ -1,6 +1,19 @@
 const express = require('express');
 const cors = require('cors');
 const fetch = require('node-fetch');
+const fs = require('fs');
+const path = require('path');
+
+// 检查配置文件是否存在
+const configPath = path.join(__dirname, 'config.js');
+if (!fs.existsSync(configPath)) {
+    console.error('错误：配置文件不存在！');
+    console.log('请复制 config.example.js 文件为 config.js，并设置你的API密钥。');
+    process.exit(1);
+}
+
+// 导入配置
+const { API_KEY, API_URL } = require('./config');
 
 const app = express();
 app.use(cors());
@@ -10,9 +23,6 @@ app.use(express.json());
 app.get('/', (req, res) => {
     res.status(200).json({ status: 'ok' });
 });
-
-const API_KEY = '79af0354-8d06-468d-b05d-5c2eb053e1c7';
-const API_URL = 'https://ark.cn-beijing.volces.com/api/v3/chat/completions';
 
 app.post('/summarize', async (req, res) => {
     try {

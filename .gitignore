@@ -1,6 +1,9 @@
 # 依赖目录
 node_modules/
 
+# 配置文件
+config.js
+
 # 操作系统文件
 .DS_Store
 .DS_Store?
